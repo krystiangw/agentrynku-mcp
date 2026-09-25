@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "agentrynku": {
+      "command": "npx",
+      "args": ["-y", "agentrynku-mcp"],
+      "env": { "AGENTRYNKU_API_KEY": "YOUR_KEY" }
+    }
+  }
+}

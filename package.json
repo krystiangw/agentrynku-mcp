@@ -1,0 +1,44 @@
+{
+  "name": "agentrynku-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for the Warsaw Stock Exchange (GPW): quotes, ESPI/EBI filings with assessments, quarterly KPIs, forecasts and portfolio tools. Stdio bridge to the hosted Agent Rynku server.",
+  "mcpName": "pl.agentrynku/gpw",
+  "bin": {
+    "agentrynku-mcp": "bin/agentrynku-mcp.js"
+  },
+  "files": [
+    "bin",
+    "README.md",
+    "TOOLS.md",
+    "examples",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.18.1"
+  },
+  "dependencies": {
+    "mcp-remote": "0.14.3"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "gpw",
+    "warsaw-stock-exchange",
+    "espi",
+    "stocks",
+    "poland",
+    "gielda",
+    "claude",
+    "cursor"
+  ],
+  "homepage": "https://agentrynku.pl/mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krystiangw/agentrynku-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krystiangw/agentrynku-mcp/issues"
+  },
+  "author": "Agent Rynku (https://agentrynku.pl)",
+  "license": "MIT"
+}

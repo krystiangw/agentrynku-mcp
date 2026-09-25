@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "agentrynku": {
+      "type": "http",
+      "url": "https://agentrynku.pl/api/mcp",
+      "headers": { "Authorization": "Bearer YOUR_KEY" }
+    }
+  }
+}
