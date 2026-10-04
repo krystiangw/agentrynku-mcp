@@ -1,118 +1,95 @@
-# Agent Rynku MCP: Warsaw Stock Exchange (GPW) data for your AI agent
+# Agent Rynku MCP: Warsaw Stock Exchange data for agents
 
 [![npm](https://img.shields.io/npm/v/agentrynku-mcp)](https://www.npmjs.com/package/agentrynku-mcp)
-[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-pl.agentrynku%2Fgpw-blue)](https://registry.modelcontextprotocol.io/v0/servers?search=pl.agentrynku)
+[![MCP Registry](https://img.shields.io/badge/MCP%20Registry-pl.agentrynku%2Fgpw-blue)](https://registry.modelcontextprotocol.io/v0.1/servers?search=pl.agentrynku%2Fgpw)
 
-**[Agent Rynku](https://agentrynku.pl/mcp)** is a hosted [Model Context Protocol](https://modelcontextprotocol.io) server with 93 tools for the Polish stock market: live and historical quotes, ESPI/EBI filings with an assessment of each one, quarterly KPIs extracted from company documents, earnings forecasts with a track record, and portfolio analytics in PLN.
+Use GPW company financials through a hosted MCP server, without creating an account. [Agent Rynku](https://agentrynku.pl/en/mcp) returns report periods, currency, sources and quality checks. Missing data is explicit.
 
-Connect it to Claude, Cursor, or any MCP client and ask things like:
+## Connect without an API key
 
-- "What did KGHM report today, and how does it compare with the forecast?"
-- "Show WIG20 companies after their latest results."
-- "Which of my positions are above 20% concentration?"
-- "How much tax will I owe on this year's sales?"
+The endpoint uses Streamable HTTP:
 
-> Polski opis jest [niżej](#po-polsku).
-
-## Quick start
-
-**1. Get an API key.** Create a free account at [agentrynku.pl](https://agentrynku.pl/login) and generate a key in [settings](https://agentrynku.pl/settings). The free account covers unlimited data tool calls; only the LLM-backed companion queries are metered. The bridge below makes one check call per start to verify the key.
-
-**2. Connect your client.** The server speaks Streamable HTTP at:
-
-```
+```text
 https://agentrynku.pl/api/mcp
 ```
 
-with the header `Authorization: Bearer YOUR_KEY`.
-
-### Claude Code
-
-```bash
-claude mcp add --transport http agentrynku https://agentrynku.pl/api/mcp \
-  --header "Authorization: Bearer YOUR_KEY"
-```
-
-### Cursor and other clients with remote HTTP support
+For clients that read this configuration format:
 
 ```json
 {
   "mcpServers": {
     "agentrynku": {
       "type": "http",
-      "url": "https://agentrynku.pl/api/mcp",
-      "headers": { "Authorization": "Bearer YOUR_KEY" }
+      "url": "https://agentrynku.pl/api/mcp"
     }
   }
 }
 ```
 
-### Claude Desktop and other clients that only run local commands
-
-This package is a small stdio bridge to the hosted server (it uses [`mcp-remote`](https://www.npmjs.com/package/mcp-remote)):
+For clients that launch a local command, this package bridges stdio to the hosted server using [mcp-remote](https://www.npmjs.com/package/mcp-remote). Requires Node 20.18.1 or newer:
 
 ```json
 {
   "mcpServers": {
     "agentrynku": {
       "command": "npx",
-      "args": ["-y", "agentrynku-mcp"],
-      "env": { "AGENTRYNKU_API_KEY": "YOUR_KEY" }
+      "args": ["-y", "agentrynku-mcp"]
     }
   }
 }
 ```
 
-More configs in [`examples/`](examples).
+No Authorization header or environment variable is needed for public data.
 
-**Try before signing up:** `initialize` and `tools/list` work without a key, so you can see the full catalogue first:
+## Public tools
+
+| Tool | What it returns | Request limit |
+|---|---|---|
+| `search_gpw_companies` | GPW companies by name, ticker, alias or ISIN, with canonical symbols and company URLs | 20 results |
+| `get_quarterly_kpis` | Quarterly financials, reporting scope, currency, units, sources and quality gates | 20 quarters |
+| `get_financial_ratios` | Quarterly margins and equity/assets, with formulas and reasons for unavailable values | 20 quarters |
+| `get_public_earnings_calendar` | Known scheduled reports across GPW, with source and fetch date | 90 days, 100 events |
+| `get_public_dividends` | Known issuer WZA dividend resolutions: amount per share, currency, dates and source | 100 events |
+
+Start with: "Find KGHM and show its latest quarterly results with report sources." Then ask for the EBITDA margin or the next 30 days of scheduled GPW reports.
+
+A direct public call:
 
 ```bash
-curl -s https://agentrynku.pl/api/mcp \
+curl -sS https://agentrynku.pl/api/mcp \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json, text/event-stream' \
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_quarterly_kpis","arguments":{"symbol":"KGHM","quartersBack":1}}}'
 ```
 
-## What is inside
+Public calls are rate limited and have a response-size limit. HTTP 429 includes `Retry-After`. Coverage is incomplete: an empty calendar does not prove there are no reports, and an empty WZA response does not prove a company pays no dividend. Ratios are based on individual quarterly reports, with scope stated per row; they are not TTM or price-based valuation multiples. Financials cover issuer reports and GPW announcements; portal databases and portal-sourced fields are excluded. Public price history and vendor dividend history are not offered.
 
-| Area | Tools | Examples |
-|---|---|---|
-| Quotes and market | 10 | `get_spot_price`, `get_intraday_quote`, `get_price_series`, `whats_moving_now`, `sector_pulse_pl` |
-| Filings and reports | 10 | `get_news_history`, `get_report_event`, `get_quarterly_kpis`, `get_company_analysis`, `get_earnings_calendar` |
-| Scores, screens and rankings | 10 | `get_stock_rankings`, `get_sygnal_score`, `find_opportunities`, `find_dip_candidates`, `run_predictive_scan` |
-| Forecasts and drivers | 6 | `get_forecast`, `get_forecast_accuracy`, `get_drivers`, `get_factor_context` |
-| Signals, alerts and events | 19 | `get_alerts`, `get_asset_signals`, `track_priced_event`, `create_decision_rule` |
-| Portfolio and allocation | 15 | `get_portfolio_context`, `get_concentration_risk`, `recommend_position_size`, `modify_watchlist` |
-| Transactions and tax | 5 | `get_realized_pnl`, `get_transaction_history`, `find_tlh_opportunities` |
-| Market risk | 4 | `get_risk_regime`, `get_risk_dashboard`, `get_event_risks` |
-| Catalyst bonds | 3 | `get_bond_series`, `get_bond_orderbook`, `calculate_early_redemption` |
-| Account, brief and diagnostics | 11 | `get_daily_brief`, `query_companion`, `set_agent_prefs` |
+## Additional tools with a key
 
-Full list with descriptions: **[TOOLS.md](TOOLS.md)**. Portfolio tools read the portfolio you keep in your Agent Rynku account; key scopes decide which tools a key can see.
+Portfolio, alerts, forecasts, quotes and other functions require an account and API key from [settings](https://agentrynku.pl/settings). Anonymous `tools/list` returns the five public tools. Keyed discovery returns the tools permitted by that key's scopes. The [full catalog](TOOLS.md) contains the available functions and identifies the public subset.
 
-## Scope and limits
+For HTTP, add `Authorization: Bearer YOUR_KEY`. For the stdio bridge, add:
 
-- **Polish equities only** (GPW main market and NewConnect), deliberately: filings are read in Polish, and extraction is built for the formats the GPW actually uses.
-- Tool names are English. Tool descriptions, the server's instructions, the web app and the source material (filings, reports) are Polish.
-- The server **does not place orders**, does not connect to a brokerage account and **does not give investment advice**. When data is missing it returns a refusal with a reason, never a substitute number.
-- Intraday quotes come from a delayed GPW feed (typically around 25 minutes behind).
+```json
+"env": { "AGENTRYNKU_API_KEY": "YOUR_KEY" }
+```
 
-## Links
+The bridge validates a supplied key with one data call on startup. That check can consume an account allowance. It does not validate a key when none is supplied. Keep keys private: scopes can permit both reads and related writes.
 
-- Server page and full catalogue: [agentrynku.pl/mcp](https://agentrynku.pl/mcp) ([English](https://agentrynku.pl/en/mcp))
-- Methodology of the assessments: [agentrynku.pl/metodologia](https://agentrynku.pl/metodologia)
-- Issues and questions: [GitHub issues](https://github.com/krystiangw/agentrynku-mcp/issues)
+Public calls without a key do not consume an account allowance. Keyed calls use 100 calls/month on FREE or 10,000 on PRO. `query_companion` also consumes an AI message. See [pricing](https://agentrynku.pl/cennik) and [account usage](https://agentrynku.pl/usage).
+
+The server does not place orders or connect to a brokerage account. Source reports and many tool descriptions are in Polish. [English setup guide](https://agentrynku.pl/en/mcp), [Polish guide](https://agentrynku.pl/mcp), [methodology](https://agentrynku.pl/metodologia), [issues](https://github.com/krystiangw/agentrynku-mcp/issues).
 
 ## Po polsku
 
-**Agent Rynku** to serwer MCP z danymi Giełdy Papierów Wartościowych w Warszawie: 93 narzędzia, przez które Twój agent czyta notowania i świece śróddzienne, raporty ESPI i EBI z oceną każdego komunikatu, dane kwartalne wyciągnięte z dokumentów spółek, prognozy wyników z rozliczeniem trafności oraz analitykę portfela w złotych.
+Dane GPW dla agenta bez konta i klucza: wyszukiwanie spółek, wyniki kwartalne, marże, publiczny kalendarz raportów i znane uchwały dywidendowe WZA. Podłącz klienta do `https://agentrynku.pl/api/mcp` bez nagłówka Authorization albo uruchom `npx -y agentrynku-mcp`.
 
-1. Załóż darmowe konto na [agentrynku.pl](https://agentrynku.pl/login) i wygeneruj klucz API w [ustawieniach](https://agentrynku.pl/settings).
-2. Podłącz klienta pod adres `https://agentrynku.pl/api/mcp` z nagłówkiem `Authorization: Bearer TWOJ_KLUCZ` (przykłady wyżej). Klient, który umie uruchomić tylko lokalne polecenie (np. Claude Desktop), użyje tej paczki: `npx -y agentrynku-mcp` ze zmienną `AGENTRYNKU_API_KEY`.
+Portfel, alerty, prognozy i notowania wymagają klucza. Klucz może dawać także prawa zapisu. Brak liczby nie oznacza zera, a brak znanego terminu nie oznacza braku raportu lub dywidendy. [Instrukcja i katalog](https://agentrynku.pl/mcp).
 
-Serwer nie składa zleceń, nie łączy się z rachunkiem maklerskim i nie daje porady inwestycyjnej. Pełny katalog narzędzi po polsku: [agentrynku.pl/mcp](https://agentrynku.pl/mcp) i [TOOLS.md](TOOLS.md).
+## Verification
+
+In this repository, after `npm ci`, run `npm run test:live` to check the live HTTP endpoint and the stdio bridge without a key. It reads public KGHM results and checks that a private write is rejected. To test a development endpoint: `npm run test:live -- http://localhost:3104/api/mcp`.
 
 ## License
 
-The bridge code and this documentation are MIT licensed. Data returned by the server is subject to the [Agent Rynku terms](https://agentrynku.pl/regulamin).
+The bridge code and documentation are MIT licensed. Data returned by the server is subject to the [Agent Rynku terms](https://agentrynku.pl/regulamin).
