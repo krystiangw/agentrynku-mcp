@@ -1,6 +1,6 @@
 # Tools / Narzędzia
 
-98 tools from the server registry on 2026-10-04. Short Polish summaries are shown below. Anonymous discovery returns only these public tools: `get_quarterly_kpis`, `search_gpw_companies`, `get_public_earnings_calendar`, `get_financial_ratios`, `get_public_dividends`. Additional tools require a key and are filtered by its scopes. Some descriptions and source reports are in Polish.
+99 tools from the server registry on 2026-10-05. Short Polish summaries are shown below. Anonymous discovery returns only these public tools: `get_quarterly_kpis`, `search_gpw_companies`, `get_public_earnings_calendar`, `get_financial_ratios`, `get_public_dividends`, `get_public_price_history`. Additional tools require a key and are filtered by its scopes. Some descriptions and source reports are in Polish.
 
 ## Notowania i rynek
 
@@ -12,6 +12,7 @@
 | `get_intraday_candles` | API key | Świece godzinowe z bieżącej i poprzednich sesji. |
 | `get_intraday_quote` | API key | Kwotowanie w trakcie sesji: cena, otwarcie, zakres dnia, zmiana wobec zamknięcia. |
 | `get_market_anomalies` | API key | Ruchy cen odstające od zwykłej zmienności spółki, wyłapane automatycznie. |
+| `get_public_price_history` | Public | Dzienna historia cen GPW z bazy, do 500 świec, ze źródłem, datami, skalą i jawnym przycięciem. |
 | `get_price_series` | API key | Świece OHLC i zmienność zrealizowana - do stop-lossów i wielkości pozycji. |
 | `get_spot_price` | API key | Bieżąca cena jednej spółki, z informacją, czy pochodzi z zamknięcia, czy z kwotowania w trakcie sesji. |
 | `search_gpw_companies` | Public | Wyszukiwanie spółek GPW po nazwie, tickerze, aliasie lub ISIN, bez konta i klucza. |

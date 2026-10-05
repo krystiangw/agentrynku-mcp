@@ -49,6 +49,7 @@ No Authorization header or environment variable is needed for public data.
 | `get_quarterly_kpis` | Quarterly financials, reporting scope, currency, units, sources and quality gates | 20 quarters |
 | `get_financial_ratios` | Quarterly margins and equity/assets, with formulas and reasons for unavailable values | 20 quarters |
 | `get_public_earnings_calendar` | Known scheduled reports across GPW, with source and fetch date | 90 days, 100 events |
+| `get_public_price_history` | Stored daily GPW OHLCV with source, dates, scale and truncation; no supplier fetch on demand | 1-3650 calendar days, 500 candles |
 | `get_public_dividends` | Known issuer WZA dividend resolutions: amount per share, currency, dates and source | 100 events |
 
 Start with: "Find KGHM and show its latest quarterly results with report sources." Then ask for the EBITDA margin or the next 30 days of scheduled GPW reports.
@@ -62,11 +63,11 @@ curl -sS https://agentrynku.pl/api/mcp \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_quarterly_kpis","arguments":{"symbol":"KGHM","quartersBack":1}}}'
 ```
 
-Public calls are rate limited and have a response-size limit. HTTP 429 includes `Retry-After`. Coverage is incomplete: an empty calendar does not prove there are no reports, and an empty WZA response does not prove a company pays no dividend. Ratios are based on individual quarterly reports, with scope stated per row; they are not TTM or price-based valuation multiples. Financials cover issuer reports and GPW announcements; portal databases and portal-sourced fields are excluded. Public price history and vendor dividend history are not offered.
+Public calls are rate limited and have a response-size limit. HTTP 429 includes `Retry-After`. Coverage is incomplete: an empty calendar does not prove there are no reports, and an empty WZA response does not prove a company pays no dividend. Ratios are based on individual quarterly reports, with scope stated per row; they are not TTM or price-based valuation multiples. Financials cover issuer reports and GPW announcements; portal databases and portal-sourced fields are excluded. Stored daily GPW equity price history is public, excluding indices, ETFs and bonds; intraday and vendor dividend history are not public. Price responses include source, stored-series update time and actual candle dates. Per-candle scale and adjustments are preserved; unknown scale and null currency mean unrecorded metadata. Adjusted history may change after splits or dividends. Coverage can be shorter than the requested window, and truncation is explicit.
 
 ## Additional tools with a key
 
-Portfolio, alerts, forecasts, quotes and other functions require an account and API key from [settings](https://agentrynku.pl/settings). Anonymous `tools/list` returns the five public tools. Keyed discovery returns the tools permitted by that key's scopes. The [full catalog](TOOLS.md) contains the available functions and identifies the public subset.
+Portfolio, alerts, forecasts, intraday quotes and other functions require an account and API key from [settings](https://agentrynku.pl/settings). Anonymous `tools/list` returns the six public tools. Keyed discovery returns the tools permitted by that key's scopes. The [full catalog](TOOLS.md) contains the available functions and identifies the public subset.
 
 For HTTP, add `Authorization: Bearer YOUR_KEY`. For the stdio bridge, add:
 
@@ -82,9 +83,9 @@ The server does not place orders or connect to a brokerage account. Source repor
 
 ## Po polsku
 
-Dane GPW dla agenta bez konta i klucza: wyszukiwanie spółek, wyniki kwartalne, marże, publiczny kalendarz raportów i znane uchwały dywidendowe WZA. Podłącz klienta do `https://agentrynku.pl/api/mcp` bez nagłówka Authorization albo uruchom `npx -y agentrynku-mcp`.
+Dane GPW dla agenta bez konta i klucza: wyszukiwanie spółek, wyniki kwartalne, marże, publiczny kalendarz raportów, znane uchwały dywidendowe WZA i dzienna historia cen z bazy. Podłącz klienta do `https://agentrynku.pl/api/mcp` bez nagłówka Authorization albo uruchom `npx -y agentrynku-mcp`.
 
-Portfel, alerty, prognozy i notowania wymagają klucza. Klucz może dawać także prawa zapisu. Brak liczby nie oznacza zera, a brak znanego terminu nie oznacza braku raportu lub dywidendy. [Instrukcja i katalog](https://agentrynku.pl/mcp).
+Portfel, alerty, prognozy i notowania intraday wymagają klucza. Klucz może dawać także prawa zapisu. Brak liczby nie oznacza zera, a brak znanego terminu nie oznacza braku raportu lub dywidendy. [Instrukcja i katalog](https://agentrynku.pl/mcp).
 
 ## Verification
 

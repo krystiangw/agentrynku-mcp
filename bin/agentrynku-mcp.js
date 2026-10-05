@@ -19,7 +19,7 @@ function fail(message) {
 
 const PUBLIC_TOOLS = new Set([
   "search_gpw_companies", "get_quarterly_kpis", "get_financial_ratios",
-  "get_public_earnings_calendar", "get_public_dividends",
+  "get_public_earnings_calendar", "get_public_dividends", "get_public_price_history",
 ]);
 const endpoint = new global.URL(URL);
 if (endpoint.protocol !== "https:" && !(endpoint.protocol === "http:" && ["localhost", "127.0.0.1", "[::1]"].includes(endpoint.hostname))) fail("use HTTPS, or HTTP on localhost for development");
