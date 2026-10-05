@@ -1,12 +1,12 @@
 {
-  "fetchedAt": "2026-10-05T18:10:08.643Z",
+  "fetchedAt": "2026-10-05T20:02:41.232Z",
   "arguments": {
     "daysAhead": 30,
     "limit": 3
   },
   "response": {
     "universe": "polish-stocks",
-    "asOf": "2026-10-05T18:10:08.432Z",
+    "asOf": "2026-10-05T20:02:40.825Z",
     "daysAhead": 30,
     "returned": 3,
     "totalMatching": 30,
@@ -30,6 +30,15 @@
         "source": "stockwatch",
         "fetchedAt": "2026-10-05T10:30:00.739Z",
         "companyUrl": "https://agentrynku.pl/asset/QUERCUS"
+      },
+      {
+        "symbol": "UCG",
+        "name": "UniCredit S.p.A.",
+        "reportDate": "2026-10-21T00:00:00.000Z",
+        "reportType": "Q3",
+        "source": "stockwatch",
+        "fetchedAt": "2026-10-05T10:30:00.739Z",
+        "companyUrl": "https://agentrynku.pl/asset/UCG"
       }
     ]
   }

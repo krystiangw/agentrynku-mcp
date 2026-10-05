@@ -3,7 +3,7 @@ name: Docs site
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'TOOLS.md', 'package.json', '.github/workflows/pages.yml']
+    paths: ['site/**', 'test/docs-refresh.mjs', 'TOOLS.md', 'package.json', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -23,6 +23,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: node --test test/docs-refresh.mjs
       - run: node site/build.mjs
       - uses: actions/upload-pages-artifact@v3
         with:

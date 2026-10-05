@@ -162,6 +162,14 @@ export const pages = {
     description:
       'Pełna lista narzędzi serwera MCP Agenta Rynku z opisem: notowania GPW, raporty spółek, prognozy, portfel, alerty, obligacje Catalyst. Które są publiczne, a które wymagają klucza.',
   },
+  tasks: {
+    slug: 'zadania-dla-agenta',
+    nav: 'Zadania dla agenta',
+    navEn: 'Agent tasks',
+    title: 'Trzy zadania z danymi GPW dla agenta MCP',
+    description:
+      'Gotowe polecenia dla agenta MCP: marża netto KGHM, zmiana cen i obsunięcie oraz kalendarz raportów GPW z uchwałami dywidendowymi. Parametry, wzory i kontrola braków.',
+  },
   en: {
     slug: 'en',
     title: 'Agent Rynku MCP: Warsaw Stock Exchange (GPW) data for AI agents',

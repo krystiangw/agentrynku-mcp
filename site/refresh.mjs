@@ -17,22 +17,14 @@ export const exampleCalls = {
 async function rpc(method, params) {
   const res = await fetch(endpoint, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' },
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream', 'X-AR-MCP-Probe': '1' },
     body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }),
+    signal: AbortSignal.timeout(30_000),
   });
   if (!res.ok) throw new Error(`${method}: HTTP ${res.status}`);
   const body = await res.json();
   if (body.error) throw new Error(`${method}: ${body.error.message}`);
   return body.result;
-}
-
-// Keeps examples short enough to read on a page while staying valid JSON.
-function trimArrays(value, maxItems = 2) {
-  if (Array.isArray(value)) return value.slice(0, maxItems).map((v) => trimArrays(v, maxItems));
-  if (value && typeof value === 'object') {
-    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, trimArrays(v, maxItems)]));
-  }
-  return value;
 }
 
 await mkdir(new URL('./examples/', dataDir), { recursive: true });
@@ -45,7 +37,8 @@ for (const [name, args] of Object.entries(exampleCalls)) {
   const result = await rpc('tools/call', { name, arguments: args });
   if (result.isError) throw new Error(`${name}: ${result.content?.[0]?.text}`);
   const payload = result.structuredContent ?? JSON.parse(result.content[0].text);
-  const example = { fetchedAt: new Date().toISOString(), arguments: args, response: trimArrays(payload) };
+  // Małe limity zapytań skracają przykład bez naruszania liczników i tablic z bramkami jakości.
+  const example = { fetchedAt: new Date().toISOString(), arguments: args, response: payload };
   await writeFile(new URL(`./examples/${name}.json`, dataDir), JSON.stringify(example, null, 2) + '\n');
   await new Promise((r) => setTimeout(r, 1000));
 }

@@ -31,6 +31,7 @@ function layout({ slug, title, description, lang = 'pl', body, jsonLd = [], alte
   const nav = [
     [en ? pages.en.slug : '', en ? 'Introduction' : 'Wprowadzenie'],
     [pages.connect.slug, en ? pages.connect.navEn : pages.connect.nav],
+    [pages.tasks.slug, en ? pages.tasks.navEn : pages.tasks.nav],
     ...tools.map((t) => [t.slug, en ? t.navEn : t.nav]),
     [pages.catalog.slug, en ? pages.catalog.navEn : pages.catalog.nav],
   ];
@@ -136,7 +137,7 @@ ${paramTable(schema)}
 ${code(curlFor(tool.name, example.arguments), 'bash')}
 
 <h2>Przykładowa odpowiedź</h2>
-<p class="note">Prawdziwa odpowiedź serwera z ${formatDate(example.fetchedAt)}. Listy skróciliśmy do dwóch pozycji.${companyUrl ? ` Te same dane zobaczysz na <a href="${companyUrl}">karcie spółki na agentrynku.pl</a>.` : ''}</p>
+<p class="note">Pełna odpowiedź serwera z ${formatDate(example.fetchedAt)} dla parametrów podanych wyżej. Mały limit zapytania utrzymuje przykład krótki.${companyUrl ? ` Kartę spółki znajdziesz na <a href="${companyUrl}">agentrynku.pl</a>.` : ''}</p>
 ${code(JSON.stringify(example.response, null, 2), 'json')}
 
 <h2>Na co uważać</h2>
@@ -276,6 +277,39 @@ ${code(`"env": { "AGENTRYNKU_API_KEY": "TWOJ_KLUCZ" }`, 'json')}
   });
 }
 
+function tasksPage() {
+  const body = `
+<h1>Trzy zadania z danymi GPW dla agenta</h1>
+<p class="lead">Podłącz <a href="/${pages.connect.slug}/">serwer MCP</a> pod adresem <code>${ENDPOINT}</code> i skopiuj jedno z poleceń. Te zadania korzystają z publicznych narzędzi, bez konta i klucza.</p>
+
+<h2 id="marza">Marża netto KGHM z dwóch kwartałów</h2>
+<blockquote>Znajdź KGHM i pobierz dwa ostatnie kwartały wyników oraz wskaźników. Pokaż przychody, zysk netto i marżę netto. Porównuj samodzielne kwartały, przy jednakowej walucie i zakresie raportu. Podaj walutę, jednostki i źródła. Braki zostaw jako brak danych. Przy sprzeczności wartości z notatką źródłową wstrzymaj obliczenie.</blockquote>
+<p>Najpierw <a href="/wyszukiwarka-spolek-gpw/"><code>search_gpw_companies</code></a> z <code>query: "KGHM"</code>. Następnie <a href="/wyniki-kwartalne-gpw/"><code>get_quarterly_kpis</code></a> oraz <a href="/wskazniki-finansowe-gpw/"><code>get_financial_ratios</code></a> z kanonicznym symbolem i <code>quartersBack: 2</code>.</p>
+${code(curlFor('get_quarterly_kpis', { symbol: 'KGHM', quartersBack: 2 }), 'bash')}
+${code(curlFor('get_financial_ratios', { symbol: 'KGHM', quartersBack: 2 }), 'bash')}
+<p>Wynik powinien mieć dwa wiersze, jeśli dane są dostępne, z okresem, zakresem, jednostkami, walutą i źródłami. Kwoty są w milionach waluty raportu, EPS na akcję. Marża netto to <code>100 * netIncomePLN / revenuePLN</code>. Sprawdź zgodność <code>currency</code> i <code>reportScope</code> obu wierszy, a także <code>values</code>, <code>withheld</code>, <code>dataQuality</code> i <code>oneOffNotes</code>. Zgodna arytmetyka nie rozstrzyga poprawności danych wejściowych.</p>
+
+<h2 id="ceny">Zmiana ceny i obsunięcie KGHM</h2>
+<blockquote>Pobierz dzienne ceny KGHM za ostatnie 365 dni, do 500 świec. Podaj faktyczny zakres, źródło, walutę i skalę cen. Przy znanej i jednorodnej skali oblicz zmianę pierwszego do ostatniego zamknięcia oraz największe obsunięcie zamknięć od wcześniejszego maksimum. Przy nieznanej lub mieszanej skali odmów obliczenia porównywalnej zmiany.</blockquote>
+${code(curlFor('get_public_price_history', { symbol: 'KGHM', days: 365, limit: 500 }), 'bash')}
+<p>Sprawdź <code>firstCandleAt</code>, <code>lastCandleAt</code>, <code>candleCount</code>, <code>truncated</code> i <code>priceScale</code> każdej świecy. Zmiana wynosi <code>100 * (ostatnie / pierwsze - 1)</code>. Obsunięcie w dniu t to <code>100 * (close[t] / max(close[0..t]) - 1)</code>; wybierz najbardziej ujemny wynik. Wartości zamknięć muszą być dodatnie i skończone.</p>
+<p><code>currency: null</code> pozostaje nieznaną walutą. Odczyt opisuje historię z bazy, a nie kurs na żywo. Skorygowany szereg może się zmienić po działaniach korporacyjnych; zmiana zamknięć nie jest pełnym rozliczeniem stopy zwrotu inwestora. Więcej o metadanych: <a href="/historia-cen-gpw/">historia cen</a>.</p>
+
+<h2 id="terminy">Terminy raportów i uchwała dywidendowa</h2>
+<blockquote>Pobierz znane terminy raportów GPW na następne 30 dni, do 100 zdarzeń. Osobno pokaż do trzech ostatnich znanych uchwał dywidendowych AGORY. Podaj kwotę, walutę, status, daty i źródło. Oddziel terminy przyszłe od historycznych. Zaznacz braki oraz przycięcie listy.</blockquote>
+${code(curlFor('get_public_earnings_calendar', { daysAhead: 30, limit: 100 }), 'bash')}
+${code(curlFor('get_public_dividends', { symbol: 'AGORA', limit: 3 }), 'bash')}
+<p>Kalendarz ma <code>source</code>, <code>fetchedAt</code> i <code>companyUrl</code>. Adres karty spółki nie jest adresem komunikatu źródłowego. Porównaj <code>returned</code> z <code>totalMatching</code> i sprawdź <code>truncated</code>. Uchwały WZA mają <code>sourceUrl</code>, status, <code>dateKind</code> oraz odrębne daty prawa, dnia bez prawa i wypłaty. Historyczna wypłata nie należy do przyszłego kalendarza. Brak znanego wpisu nie oznacza braku zdarzenia.</p>
+<p>Szczegóły: <a href="/kalendarz-raportow-gpw/">kalendarz raportów</a> i <a href="/dywidendy-gpw/">dywidendy</a>.</p>
+
+<h2 id="braki">Kontrola braków</h2>
+<p>Dla nieistniejącego symbolu <code>get_quarterly_kpis</code> zwraca <code>emptyReason: "unknown_or_ambiguous_instrument"</code>. Nie przedstawiaj pustej listy jako zerowego wyniku finansowego. Dla symbolu z rynku USA, np. <code>CRM.US</code>, narzędzie <code>get_public_price_history</code> zwraca <code>emptyReason: "unsupported_market"</code>. Publiczna historia cen obejmuje akcje GPW.</p>
+`;
+  return layout({ slug: pages.tasks.slug, title: pages.tasks.title,
+    description: pages.tasks.description, body,
+    jsonLd: [breadcrumb([['Dokumentacja', urlOf('')], ['Zadania dla agenta', urlOf(pages.tasks.slug)]])] });
+}
+
 function parseCatalog(markdown) {
   const sections = [];
   for (const line of markdown.split('\n')) {
@@ -355,6 +389,7 @@ const catalog = catalogPage(await read('TOOLS.md'));
 const routes = [
   ['', homePage(catalog.total - tools.length)],
   [pages.connect.slug, connectPage()],
+  [pages.tasks.slug, tasksPage()],
   ...tools.map((t) => [t.slug, toolPage(t)]),
   [pages.catalog.slug, catalog.html],
   [pages.en.slug, enPage()],
@@ -389,6 +424,7 @@ await writeFile(
 
 ## Docs
 - [Connect a client](${urlOf(pages.connect.slug)}): Claude Code, Claude Desktop, Cursor, raw JSON-RPC
+- [Agent tasks](${urlOf(pages.tasks.slug)}): quarterly margins, daily-price change and drawdown, earnings dates and WZA dividends
 ${tools.map((t) => `- [${t.name}](${urlOf(t.slug)}): ${t.description}`).join('\n')}
 - [Full catalog](${urlOf(pages.catalog.slug)}): all ${catalog.total} tools with access level
 

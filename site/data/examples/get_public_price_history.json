@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-05T18:10:09.776Z",
+  "fetchedAt": "2026-10-05T20:02:42.413Z",
   "arguments": {
     "symbol": "KGHM",
     "days": 7,
@@ -14,7 +14,7 @@
     "limit": 3,
     "currency": null,
     "source": "eodhd:droplet",
-    "seriesUpdatedAt": "2026-10-05T17:33:11.292Z",
+    "seriesUpdatedAt": "2026-10-05T19:32:44.877Z",
     "firstCandleAt": "2026-09-30T00:00:00.000Z",
     "lastCandleAt": "2026-10-02T00:00:00.000Z",
     "availableInWindow": 4,
@@ -39,6 +39,17 @@
         "low": 319.5,
         "close": 321.2,
         "volume": 835173,
+        "priceScale": "adjusted",
+        "adjustmentFactor": 1,
+        "adjustmentSource": "eodhd:adjusted_close/close"
+      },
+      {
+        "ts": "2026-10-02T00:00:00.000Z",
+        "open": 323,
+        "high": 335.35,
+        "low": 322.05,
+        "close": 335.3,
+        "volume": 597070,
         "priceScale": "adjusted",
         "adjustmentFactor": 1,
         "adjustmentSource": "eodhd:adjusted_close/close"
