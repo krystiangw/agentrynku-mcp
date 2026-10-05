@@ -27,14 +27,19 @@ const paramHelp = {
 };
 
 function layout({ slug, title, description, lang = 'pl', body, jsonLd = [], alternates, noindex = false }) {
+  const en = lang === 'en';
   const nav = [
-    ['', 'Wprowadzenie'],
-    [pages.connect.slug, pages.connect.nav],
-    ...tools.map((t) => [t.slug, t.nav]),
-    [pages.catalog.slug, pages.catalog.nav],
+    [en ? pages.en.slug : '', en ? 'Introduction' : 'Wprowadzenie'],
+    [pages.connect.slug, en ? pages.connect.navEn : pages.connect.nav],
+    ...tools.map((t) => [t.slug, en ? t.navEn : t.nav]),
+    [pages.catalog.slug, en ? pages.catalog.navEn : pages.catalog.nav],
   ];
+  // Only the introduction exists in English; the rest link to Polish pages and say so.
   const navHtml = nav
-    .map(([s, label]) => `<li><a href="/${s ? s + '/' : ''}"${s === slug ? ' aria-current="page"' : ''}>${esc(label)}</a></li>`)
+    .map(([s, label], i) => {
+      const polishTarget = en && i > 0;
+      return `<li><a href="/${s ? s + '/' : ''}"${s === slug ? ' aria-current="page"' : ''}${polishTarget ? ' hreflang="pl"' : ''}>${esc(label)}${polishTarget ? ' <span class="lang">PL</span>' : ''}</a></li>`;
+    })
     .join('');
   const alt = alternates
     ? Object.entries(alternates).map(([l, href]) => `<link rel="alternate" hreflang="${l}" href="${href}">`).join('\n')
@@ -62,19 +67,22 @@ ${jsonLd.map((d) => `<script type="application/ld+json">${JSON.stringify(d).repl
 <body>
 <header class="top">
   <a class="brand" href="/">Agent Rynku <span>MCP</span></a>
-  <nav class="top-links" aria-label="Serwis">
-    <a href="${MAIN}/mcp">agentrynku.pl</a>
+  <nav class="top-links" aria-label="${en ? 'Site' : 'Serwis'}">
+    <a href="${MAIN}${en ? '/en/mcp' : '/mcp'}">agentrynku.pl</a>
     <a href="https://github.com/krystiangw/agentrynku-mcp">GitHub</a>
     ${lang === 'pl' ? '<a href="/en/" hreflang="en">English</a>' : '<a href="/" hreflang="pl">Polski</a>'}
   </nav>
 </header>
 <div class="shell">
-  <nav class="side" aria-label="Dokumentacja"><ul>${navHtml}</ul></nav>
+  <nav class="side" aria-label="${en ? 'Documentation' : 'Dokumentacja'}"><ul>${navHtml}</ul></nav>
   <main>${body}</main>
 </div>
 <footer>
-  <p>Serwer MCP <a href="${MAIN}/">Agenta Rynku</a>, paczka npm <a href="https://www.npmjs.com/package/agentrynku-mcp">agentrynku-mcp</a> ${esc(pkg.version)}.
-  Dane podlegają <a href="${MAIN}/regulamin">regulaminowi</a>. Serwer nie składa zleceń i nie udziela porad inwestycyjnych.</p>
+  <p>${
+    en
+      ? `<a href="${MAIN}/en/mcp">Agent Rynku</a> MCP server, npm package <a href="https://www.npmjs.com/package/agentrynku-mcp">agentrynku-mcp</a> ${esc(pkg.version)}. Data is subject to the <a href="${MAIN}/regulamin">terms of service</a> (in Polish). The server does not place orders or give investment advice.`
+      : `Serwer MCP <a href="${MAIN}/">Agenta Rynku</a>, paczka npm <a href="https://www.npmjs.com/package/agentrynku-mcp">agentrynku-mcp</a> ${esc(pkg.version)}. Dane podlegają <a href="${MAIN}/regulamin">regulaminowi</a>. Serwer nie składa zleceń i nie udziela porad inwestycyjnych.`
+  }</p>
 </footer>
 </body>
 </html>
