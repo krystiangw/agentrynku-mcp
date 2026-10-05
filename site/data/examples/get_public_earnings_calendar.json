@@ -1,0 +1,36 @@
+{
+  "fetchedAt": "2026-10-05T18:10:08.643Z",
+  "arguments": {
+    "daysAhead": 30,
+    "limit": 3
+  },
+  "response": {
+    "universe": "polish-stocks",
+    "asOf": "2026-10-05T18:10:08.432Z",
+    "daysAhead": 30,
+    "returned": 3,
+    "totalMatching": 30,
+    "truncated": true,
+    "note": "Known scheduled reports only. An empty calendar does not mean no companies will report.",
+    "events": [
+      {
+        "symbol": "LES",
+        "name": "LESS S.A.",
+        "reportDate": "2026-10-16T00:00:00.000Z",
+        "reportType": "semi",
+        "source": "stockwatch",
+        "fetchedAt": "2026-10-05T10:30:00.739Z",
+        "companyUrl": "https://agentrynku.pl/asset/LES"
+      },
+      {
+        "symbol": "QUERCUS",
+        "name": "Quercus TFI SA",
+        "reportDate": "2026-10-20T00:00:00.000Z",
+        "reportType": "Q3",
+        "source": "stockwatch",
+        "fetchedAt": "2026-10-05T10:30:00.739Z",
+        "companyUrl": "https://agentrynku.pl/asset/QUERCUS"
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "fetchedAt": "2026-10-05T18:10:07.300Z",
+  "arguments": {
+    "symbol": "KGHM",
+    "quartersBack": 2
+  },
+  "response": {
+    "symbol": "KGHM",
+    "universe": "polish-stocks",
+    "assetId": "69ed03a9aed8a51a4f606dea",
+    "companyUrl": "https://agentrynku.pl/asset/KGHM",
+    "coverage": "Issuer reports and GPW announcements only. Portal databases and portal-sourced fields are excluded.",
+    "units": "percent",
+    "basis": "quarterly_report",
+    "formulas": {
+      "ebitdaMarginPct": "ebitdaPLN / revenuePLN * 100",
+      "operatingMarginPct": "ebitPLN / revenuePLN * 100",
+      "netMarginPct": "netIncomePLN / revenuePLN * 100",
+      "netMarginExOneOffPct": "netIncomeExOneOffPLN / revenuePLN * 100",
+      "equityToAssetsPct": "totalEquityPLN / totalAssetsPLN * 100"
+    },
+    "quarters": [
+      {
+        "quarter": "2026-Q2",
+        "reportScope": "consolidated",
+        "currency": "PLN",
+        "reportedAt": "2026-08-19T15:08:36.000Z",
+        "source": "pap",
+        "sourceUrl": "https://www.gpw.pl/komunikat?geru_id=495559",
+        "withheld": [],
+        "withheldByOneOff": [],
+        "dataQuality": {
+          "flagRule": null,
+          "flagRuleOpis": null,
+          "manualVerdict": null,
+          "manualVerdictOpis": null,
+          "blocksComputation": false,
+          "confirmedBadFields": []
+        },
+        "publicSourceWithheldFields": [],
+        "ratios": {
+          "ebitdaMarginPct": null,
+          "operatingMarginPct": null,
+          "netMarginPct": 15.97,
+          "netMarginExOneOffPct": 15.97,
+          "equityToAssetsPct": 60.45
+        },
+        "unavailable": {
+          "ebitdaMarginPct": "missing_or_withheld_input",
+          "operatingMarginPct": "missing_or_withheld_input"
+        }
+      },
+      {
+        "quarter": "2026-Q1",
+        "reportScope": "consolidated",
+        "currency": "PLN",
+        "reportedAt": "2026-05-13T15:14:42.000Z",
+        "source": "pap",
+        "sourceUrl": "https://www.gpw.pl/komunikat?geru_id=488617",
+        "withheld": [],
+        "withheldByOneOff": [],
+        "dataQuality": {
+          "flagRule": null,
+          "flagRuleOpis": null,
+          "manualVerdict": null,
+          "manualVerdictOpis": null,
+          "blocksComputation": false,
+          "confirmedBadFields": []
+        },
+        "publicSourceWithheldFields": [],
+        "ratios": {
+          "ebitdaMarginPct": null,
+          "operatingMarginPct": 33.69,
+          "netMarginPct": 29.73,
+          "netMarginExOneOffPct": 29.73,
+          "equityToAssetsPct": 58.33
+        },
+        "unavailable": {
+          "ebitdaMarginPct": "missing_or_withheld_input"
+        }
+      }
+    ]
+  }
+}

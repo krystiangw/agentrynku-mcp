@@ -1,0 +1,50 @@
+{
+  "fetchedAt": "2026-10-05T18:10:09.776Z",
+  "arguments": {
+    "symbol": "KGHM",
+    "days": 7,
+    "limit": 3
+  },
+  "response": {
+    "symbol": "KGHM",
+    "universe": "polish-stocks",
+    "assetId": "69ed03a9aed8a51a4f606dea",
+    "interval": "1d",
+    "requestedLookbackDays": 7,
+    "limit": 3,
+    "currency": null,
+    "source": "eodhd:droplet",
+    "seriesUpdatedAt": "2026-10-05T17:33:11.292Z",
+    "firstCandleAt": "2026-09-30T00:00:00.000Z",
+    "lastCandleAt": "2026-10-02T00:00:00.000Z",
+    "availableInWindow": 4,
+    "candleCount": 3,
+    "truncated": true,
+    "candles": [
+      {
+        "ts": "2026-09-30T00:00:00.000Z",
+        "open": 326,
+        "high": 336.8,
+        "low": 324.9,
+        "close": 329.55,
+        "volume": 682593,
+        "priceScale": "adjusted",
+        "adjustmentFactor": 1,
+        "adjustmentSource": "eodhd:adjusted_close/close"
+      },
+      {
+        "ts": "2026-10-01T00:00:00.000Z",
+        "open": 331,
+        "high": 331.2,
+        "low": 319.5,
+        "close": 321.2,
+        "volume": 835173,
+        "priceScale": "adjusted",
+        "adjustmentFactor": 1,
+        "adjustmentSource": "eodhd:adjusted_close/close"
+      }
+    ],
+    "emptyReason": null,
+    "coverage": "Stored GPW daily OHLCV only. Coverage may be shorter than the requested window. Currency null and priceScale unknown mean unrecorded metadata. Adjusted history may be revised after corporate actions; this is not an intraday or live quote."
+  }
+}
