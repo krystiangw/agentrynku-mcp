@@ -66,7 +66,7 @@ export const tools = [
     ],
     caveats: [
       'To wskaźniki z pojedynczego kwartału, a nie TTM. Nie ma tu mnożników cenowych (P/E, EV/EBITDA).',
-      'Gdy wskaźnika nie da się policzyć, pole <code>unavailable</code> podaje powód, na przykład brak danych wejściowych albo ujemny mianownik.',
+      'Gdy wskaźnika nie da się policzyć, pole <code>unavailable</code> podaje powód, na przykład brak danych wejściowych albo zerowy lub ujemny mianownik.',
     ],
     prompts: ['Policz marżę netto KGHM z dwóch ostatnich kwartałów.', 'Która z tych spółek ma wyższą marżę EBITDA: Orlen czy PGE?'],
   },
@@ -149,7 +149,7 @@ export const pages = {
   },
   catalog: {
     slug: 'katalog',
-    nav: 'Katalog 99 narzędzi',
+    nav: 'Katalog narzędzi',
     title: 'Katalog narzędzi MCP Agenta Rynku: notowania, raporty, portfel',
     description:
       'Pełna lista narzędzi serwera MCP Agenta Rynku z opisem: notowania GPW, raporty spółek, prognozy, portfel, alerty, obligacje Catalyst. Które są publiczne, a które wymagają klucza.',

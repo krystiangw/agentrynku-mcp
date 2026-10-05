@@ -57,7 +57,7 @@ ${alt}
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
-${jsonLd.map((d) => `<script type="application/ld+json">${JSON.stringify(d)}</script>`).join('\n')}
+${jsonLd.map((d) => `<script type="application/ld+json">${JSON.stringify(d).replace(/</g, '\\u003c')}</script>`).join('\n')}
 </head>
 <body>
 <header class="top">
@@ -362,12 +362,13 @@ for (const [slug, html] of routes) {
 await writeFile(new URL('404.html', out), notFoundPage());
 await cp(new URL('site/static/', root), out, { recursive: true });
 
-const today = new Date().toISOString().slice(0, 10);
+// Only tool pages have a content date we can trust; a build date on every URL teaches Google to ignore lastmod.
+const lastmodBySlug = Object.fromEntries(tools.map((t) => [t.slug, examples[t.name].fetchedAt.slice(0, 10)]));
 await writeFile(
   new URL('sitemap.xml', out),
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${routes.map(([slug]) => `  <url><loc>${urlOf(slug)}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
+${routes.map(([slug]) => `  <url><loc>${urlOf(slug)}</loc>${lastmodBySlug[slug] ? `<lastmod>${lastmodBySlug[slug]}</lastmod>` : ''}</url>`).join('\n')}
 </urlset>
 `,
 );
