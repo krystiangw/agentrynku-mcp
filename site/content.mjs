@@ -7,6 +7,7 @@ export const tools = [
     name: 'search_gpw_companies',
     slug: 'wyszukiwarka-spolek-gpw',
     nav: 'Wyszukiwarka spółek',
+    navEn: 'Company search',
     title: 'Wyszukiwarka spółek GPW dla agenta AI: ticker, nazwa, ISIN',
     description:
       'Znajdź spółkę z GPW po nazwie, tickerze, aliasie albo ISIN przez serwer MCP Agenta Rynku. Bez konta i klucza API, do 20 wyników z kanonicznym symbolem.',
@@ -28,6 +29,7 @@ export const tools = [
     name: 'get_quarterly_kpis',
     slug: 'wyniki-kwartalne-gpw',
     nav: 'Wyniki kwartalne',
+    navEn: 'Quarterly results',
     title: 'Wyniki kwartalne spółek GPW przez MCP: przychody, zysk, przepływy',
     description:
       'Kwartalne wyniki finansowe spółek z GPW dla agenta AI: przychody, EBITDA, zysk netto, EPS, bilans i przepływy, ze źródłem raportu i oceną jakości każdego wiersza.',
@@ -54,6 +56,7 @@ export const tools = [
     name: 'get_financial_ratios',
     slug: 'wskazniki-finansowe-gpw',
     nav: 'Wskaźniki i marże',
+    navEn: 'Ratios and margins',
     title: 'Marże i wskaźniki finansowe spółek GPW przez MCP',
     description:
       'Marża EBITDA, operacyjna i netto oraz udział kapitału w aktywach dla spółek z GPW, liczone z raportów kwartalnych, z formułą i powodem, gdy wskaźnika nie da się policzyć.',
@@ -74,6 +77,7 @@ export const tools = [
     name: 'get_public_earnings_calendar',
     slug: 'kalendarz-raportow-gpw',
     nav: 'Kalendarz raportów',
+    navEn: 'Earnings calendar',
     title: 'Kalendarz publikacji raportów okresowych GPW dla agenta AI',
     description:
       'Zapowiedziane terminy raportów kwartalnych, półrocznych i rocznych spółek z GPW na najbliższe 90 dni, ze źródłem i datą pobrania. Publiczne narzędzie MCP bez klucza.',
@@ -94,6 +98,7 @@ export const tools = [
     name: 'get_public_price_history',
     slug: 'historia-cen-gpw',
     nav: 'Historia cen',
+    navEn: 'Price history',
     title: 'Historia notowań akcji GPW (OHLCV) przez MCP, bez klucza API',
     description:
       'Dzienne notowania akcji z GPW: otwarcie, maksimum, minimum, zamknięcie i wolumen, do 500 świec i 10 lat wstecz. Ze źródłem, skalą cen i jawnym przycięciem. Bez konta.',
@@ -116,6 +121,7 @@ export const tools = [
     name: 'get_public_dividends',
     slug: 'dywidendy-gpw',
     nav: 'Dywidendy',
+    navEn: 'Dividends',
     title: 'Dywidendy spółek GPW z uchwał WZA dla agenta AI',
     description:
       'Uchwały dywidendowe spółek z GPW z komunikatów walnych zgromadzeń: kwota na akcję, waluta, dzień ustalenia prawa, dzień wypłaty i link do komunikatu. Bez klucza API.',
@@ -143,6 +149,7 @@ export const pages = {
   connect: {
     slug: 'podlaczenie',
     nav: 'Podłączenie',
+    navEn: 'Connecting',
     title: 'Jak podłączyć dane z GPW do Claude, Cursora i innych klientów MCP',
     description:
       'Konfiguracja serwera MCP Agenta Rynku w Claude Code, Claude Desktop, Cursorze i dowolnym kliencie HTTP. Dane publiczne działają bez klucza API.',
@@ -150,6 +157,7 @@ export const pages = {
   catalog: {
     slug: 'katalog',
     nav: 'Katalog narzędzi',
+    navEn: 'Tool catalog',
     title: 'Katalog narzędzi MCP Agenta Rynku: notowania, raporty, portfel',
     description:
       'Pełna lista narzędzi serwera MCP Agenta Rynku z opisem: notowania GPW, raporty spółek, prognozy, portfel, alerty, obligacje Catalyst. Które są publiczne, a które wymagają klucza.',
