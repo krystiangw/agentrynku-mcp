@@ -1,0 +1,32 @@
+{
+  "fetchedAt": "2026-10-05T18:10:10.869Z",
+  "arguments": {
+    "symbol": "AGO",
+    "limit": 1
+  },
+  "response": {
+    "symbol": "AGORA",
+    "assetId": "69ed1893aed8a51a4f606e46",
+    "universe": "polish-stocks",
+    "asOf": "2026-10-03T07:00:00.934Z",
+    "coverage": "Issuer WZA announcements only. Vendor history and predictions are excluded. Missing events do not prove absence of dividends.",
+    "returned": 1,
+    "truncated": false,
+    "events": [
+      {
+        "amountPerShare": 0.5,
+        "currency": "PLN",
+        "status": "approved",
+        "dateKind": "ex_date",
+        "announcedAt": "2026-07-29T18:30:03.850Z",
+        "recordDate": null,
+        "exDate": "2026-07-06T00:00:00.000Z",
+        "paymentDate": "2026-07-20T00:00:00.000Z",
+        "source": "wza",
+        "sourceUrl": "https://www.gpw.pl/komunikat?geru_id=492755",
+        "observedAt": "2026-07-29T18:30:03.850Z",
+        "lastSeenAt": "2026-10-03T07:00:00.934Z"
+      }
+    ]
+  }
+}

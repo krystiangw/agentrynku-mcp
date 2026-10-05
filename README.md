@@ -5,6 +5,8 @@
 
 Use GPW company financials through a hosted MCP server, without creating an account. [Agent Rynku](https://agentrynku.pl/en/mcp) returns report periods, currency, sources and quality checks. Missing data is explicit.
 
+Documentation with parameters and real responses for every public tool: [docs.agentrynku.pl](https://docs.agentrynku.pl/).
+
 ## Connect without an API key
 
 The endpoint uses Streamable HTTP:

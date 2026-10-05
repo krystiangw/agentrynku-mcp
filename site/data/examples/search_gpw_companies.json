@@ -1,0 +1,23 @@
+{
+  "fetchedAt": "2026-10-05T18:10:04.974Z",
+  "arguments": {
+    "query": "KGHM",
+    "limit": 3
+  },
+  "response": {
+    "query": "KGHM",
+    "universe": "polish-stocks",
+    "returned": 1,
+    "truncated": false,
+    "companies": [
+      {
+        "assetId": "69ed03a9aed8a51a4f606dea",
+        "symbol": "KGHM",
+        "displaySymbol": "KGHM",
+        "name": "KGHM Polska Miedź SA",
+        "isin": "PLKGHM000017",
+        "companyUrl": "https://agentrynku.pl/asset/KGHM"
+      }
+    ]
+  }
+}

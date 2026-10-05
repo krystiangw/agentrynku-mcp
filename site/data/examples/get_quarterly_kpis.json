@@ -1,0 +1,155 @@
+{
+  "fetchedAt": "2026-10-05T18:10:06.203Z",
+  "arguments": {
+    "symbol": "KGHM",
+    "quartersBack": 1
+  },
+  "response": {
+    "symbol": "KGHM",
+    "assetId": "69ed03a9aed8a51a4f606dea",
+    "universe": "polish-stocks",
+    "companyUrl": "https://agentrynku.pl/asset/KGHM",
+    "coverage": "Issuer reports and GPW announcements only. Portal databases and portal-sourced fields are excluded.",
+    "storageSymbols": [
+      "KGHM"
+    ],
+    "units": {
+      "fields": {
+        "quarters[].revenuePLN": "currency_millions",
+        "quarters[].ebitdaPLN": "currency_millions",
+        "quarters[].adjustedEbitdaPLN": "currency_millions",
+        "quarters[].ebitPLN": "currency_millions",
+        "quarters[].netIncomePLN": "currency_millions",
+        "quarters[].netIncomeExOneOffPLN": "currency_millions",
+        "quarters[].netIncomeOneOff.valuePLN": "currency_millions",
+        "quarters[].netIncomeAttributableToParentPLN": "currency_millions",
+        "quarters[].adjustedNetIncomePLN": "currency_millions",
+        "quarters[].oneOffItemsPLN": "currency_millions",
+        "quarters[].totalAssetsPLN": "currency_millions",
+        "quarters[].totalEquityPLN": "currency_millions",
+        "quarters[].netDebtPLN": "currency_millions",
+        "quarters[].operatingCashFlowPLN": "currency_millions",
+        "quarters[].capexPLN": "currency_millions",
+        "quarters[].freeCashFlowPLN": "currency_millions",
+        "quarters[].epsPLN": "currency_per_share",
+        "quarters[].adjustedEpsPLN": "currency_per_share"
+      },
+      "currencyBasis": {
+        "quarters[].revenuePLN": "issuer_reporting_currency",
+        "quarters[].ebitdaPLN": "issuer_reporting_currency",
+        "quarters[].adjustedEbitdaPLN": "issuer_reporting_currency",
+        "quarters[].ebitPLN": "issuer_reporting_currency",
+        "quarters[].netIncomePLN": "issuer_reporting_currency",
+        "quarters[].netIncomeExOneOffPLN": "issuer_reporting_currency",
+        "quarters[].netIncomeOneOff.valuePLN": "issuer_reporting_currency",
+        "quarters[].netIncomeAttributableToParentPLN": "issuer_reporting_currency",
+        "quarters[].adjustedNetIncomePLN": "issuer_reporting_currency",
+        "quarters[].oneOffItemsPLN": "issuer_reporting_currency",
+        "quarters[].totalAssetsPLN": "issuer_reporting_currency",
+        "quarters[].totalEquityPLN": "issuer_reporting_currency",
+        "quarters[].netDebtPLN": "issuer_reporting_currency",
+        "quarters[].operatingCashFlowPLN": "issuer_reporting_currency",
+        "quarters[].capexPLN": "issuer_reporting_currency",
+        "quarters[].freeCashFlowPLN": "issuer_reporting_currency",
+        "quarters[].epsPLN": "issuer_reporting_currency",
+        "quarters[].adjustedEpsPLN": "issuer_reporting_currency"
+      },
+      "note": "⚠️⚠️ Amounts here are in MILLIONS: `revenuePLN: 11872` means 11.87 billion, not 11872. `get_forecast` reports `baseline.*` in BARE units, so the same company differs by 1e6 between the two tools. `epsPLN` and `adjustedEpsPLN` are per-share and therefore in bare units. ⚠️ CURRENCY IS DECLARED SEPARATELY IN `currencyBasis`, because one response mixes several bases: the `PLN` suffix is a legacy field name, not a currency assertion. `issuer_reporting_currency` = the issuer's statements (may be EUR or USD); `listing_quote_currency` = the price feed for that listing; `holding_cost_currency` = the per-position cost basis (USD for a US holding); `cost_minus_quote_difference` = a value produced by subtracting the quote from the cost, which has no single currency and is only meaningful while those two agree (measured 2026-08-05: true for 45 of 45 stored positions). An issuer that reports in EUR while trading in PLN puts two different currencies in the same response, so never subtract a quote from a reported amount without checking both entries."
+    },
+    "quarters": [
+      {
+        "publicSourceWithheldFields": [],
+        "quarter": "2026-Q2",
+        "reportScope": "consolidated",
+        "reportedAt": "2026-08-19T15:08:36.000Z",
+        "currency": "PLN",
+        "revenuePLN": 12839,
+        "ebitdaPLN": null,
+        "adjustedEbitdaPLN": null,
+        "ebitPLN": null,
+        "withheldByOneOff": [],
+        "withheld": [],
+        "netIncomePLN": 2050,
+        "netIncomeExOneOffPLN": 2050,
+        "netIncomeOneOff": null,
+        "netIncomeAttributableToParentPLN": null,
+        "epsPLN": 10.25,
+        "adjustedNetIncomePLN": null,
+        "adjustedEpsPLN": null,
+        "oneOffItemsPLN": null,
+        "oneOffNotes": "[derived] standalone 2026-Q2 from YTD delta (ytd_delta)",
+        "totalAssetsPLN": 65862,
+        "totalEquityPLN": 39814,
+        "netDebtPLN": null,
+        "operatingCashFlowPLN": 1876,
+        "capexPLN": null,
+        "freeCashFlowPLN": null,
+        "source": "pap",
+        "sourceUrl": "https://www.gpw.pl/komunikat?geru_id=495559",
+        "values": {
+          "revenuePLN": {
+            "value": 12839,
+            "asOf": "2026-08-19T15:08:36.000Z",
+            "source": "ręcznie",
+            "evidenceCount": 1,
+            "currency": "PLN",
+            "unit": "mln",
+            "sourceUrl": "https://kghm.com/sites/default/files/2026-08/Skonsolidowany%20raport%20p%C3%B3%C5%82roczny%20PSr%202026.pdf"
+          },
+          "netIncomePLN": {
+            "value": 2050,
+            "asOf": "2026-08-19T15:08:36.000Z",
+            "source": "wyliczona z raportu",
+            "evidenceCount": 1,
+            "currency": "PLN",
+            "unit": "mln",
+            "sourceUrl": "https://www.gpw.pl/komunikat?geru_id=495559"
+          },
+          "epsPLN": {
+            "value": 10.25,
+            "asOf": "2026-08-19T15:08:36.000Z",
+            "source": "PAP",
+            "evidenceCount": 1,
+            "currency": "PLN",
+            "sourceUrl": "https://www.gpw.pl/komunikat?geru_id=495559"
+          },
+          "operatingCashFlowPLN": {
+            "value": 1876,
+            "asOf": "2026-08-19T15:08:36.000Z",
+            "source": "wyliczona z raportu",
+            "evidenceCount": 1,
+            "currency": "PLN",
+            "unit": "mln",
+            "sourceUrl": "https://www.gpw.pl/komunikat?geru_id=495559"
+          },
+          "totalAssetsPLN": {
+            "value": 65862,
+            "asOf": "2026-08-19T15:08:36.000Z",
+            "source": "PAP",
+            "evidenceCount": 1,
+            "currency": "PLN",
+            "unit": "mln",
+            "sourceUrl": "https://www.gpw.pl/komunikat?geru_id=495559"
+          },
+          "totalEquityPLN": {
+            "value": 39814,
+            "asOf": "2026-08-19T15:08:36.000Z",
+            "source": "PAP",
+            "evidenceCount": 1,
+            "currency": "PLN",
+            "unit": "mln",
+            "sourceUrl": "https://www.gpw.pl/komunikat?geru_id=495559"
+          }
+        },
+        "dataQuality": {
+          "flagRule": null,
+          "flagRuleOpis": null,
+          "manualVerdict": null,
+          "manualVerdictOpis": null,
+          "blocksComputation": false,
+          "confirmedBadFields": []
+        }
+      }
+    ]
+  }
+}
