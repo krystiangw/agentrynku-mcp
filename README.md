@@ -101,3 +101,8 @@ The bridge code and documentation are MIT licensed. Data returned by the server 
 ### 1.2.1: original report files
 
 The keyed `get_report_event` response includes `zdarzenie.zrodla[].zalaczniki` with `{nazwa, url}` for original issuer attachments linked to that report event. An empty list means no valid attachment links are recorded; use the source `url` as a communication page when available. This is not a PDF/Word export of Agent Rynku analysis. The tool still requires an API key with `read:portfolio` and a company within the account's scope. Public access and transport are unchanged. See the [tool catalog](https://docs.agentrynku.pl/katalog/).
+
+
+### 1.2.2: source page alongside file links
+
+Always include the report's recorded source communication page alongside attachment links. If a direct file does not open, users can download through that page. Copy each attachment URL exactly, including underscores and query parameters. Agent Rynku web and Telegram chat render original file names and URLs from tool results directly. Requests combining analysis with original files retain the analysis and add the source links. This documentation patch leaves the MCP response fields, access rules and transport unchanged.

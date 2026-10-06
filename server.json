@@ -3,7 +3,7 @@
   "name": "pl.agentrynku/gpw",
   "title": "Agent Rynku - Warsaw Stock Exchange (GPW) data for your agent",
   "description": "Public GPW daily prices, financials, ratios, company search, earnings calendar and WZA dividends.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "websiteUrl": "https://agentrynku.pl/mcp",
   "remotes": [
     {
@@ -35,7 +35,7 @@
     {
       "registryType": "npm",
       "identifier": "agentrynku-mcp",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "transport": {
         "type": "stdio"
       },
