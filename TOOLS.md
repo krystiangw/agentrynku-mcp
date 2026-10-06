@@ -34,7 +34,7 @@
 | `get_public_dividends` | Public | Znane uchwały dywidendowe GPW z komunikatów WZA, z kwotą na akcję, walutą, terminami i źródłem. |
 | `get_public_earnings_calendar` | Public | Publiczny kalendarz zapowiedzianych raportów GPW na najbliższe 90 dni, ze źródłem i datą pobrania. |
 | `get_quarterly_kpis` | Public | Wyniki kwartalne spółki: przychód, zysk, bilans i przepływy, wraz z oceną jakości każdego wiersza. |
-| `get_report_event` | API key | Jeden raport kwartalny jako zdarzenie: co mówi, co rozliczył, co zmienił, co zostaje otwarte, z wiekiem i źródłem każdej liczby. |
+| `get_report_event` | API key | Jeden raport kwartalny jako zdarzenie: wyniki, rozliczenia, zmiany i otwarte tezy, z wiekiem i źródłem każdej liczby oraz nazwami i linkami oryginalnych załączników emitenta. |
 | `get_wza_summary` | API key | Streszczenie walnego zgromadzenia akcjonariuszy. |
 
 ## Oceny i rankingi

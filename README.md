@@ -96,3 +96,8 @@ In this repository, after `npm ci`, run `npm run test:live` to check the live HT
 ## License
 
 The bridge code and documentation are MIT licensed. Data returned by the server is subject to the [Agent Rynku terms](https://agentrynku.pl/regulamin).
+
+
+### 1.2.1: original report files
+
+The keyed `get_report_event` response includes `zdarzenie.zrodla[].zalaczniki` with `{nazwa, url}` for original issuer attachments linked to that report event. An empty list means no valid attachment links are recorded; use the source `url` as a communication page when available. This is not a PDF/Word export of Agent Rynku analysis. The tool still requires an API key with `read:portfolio` and a company within the account's scope. Public access and transport are unchanged. See the [tool catalog](https://docs.agentrynku.pl/katalog/).
