@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/agentrynku-mcp)](https://www.npmjs.com/package/agentrynku-mcp)
 [![MCP Registry](https://img.shields.io/badge/MCP%20Registry-pl.agentrynku%2Fgpw-blue)](https://registry.modelcontextprotocol.io/v0.1/servers?search=pl.agentrynku%2Fgpw)
+[![mcprush grade](https://mcprush.com/badge/agent-rynku-warsaw-stock-exchange-gpw-data-fo-mcp/card.svg)](https://mcprush.com/to/agent-rynku-warsaw-stock-exchange-gpw-data-fo-mcp?ref=badge)
 
 Use GPW company financials through a hosted MCP server, without creating an account. [Agent Rynku](https://agentrynku.pl/en/mcp) returns report periods, currency, sources and quality checks. Missing data is explicit.
 
