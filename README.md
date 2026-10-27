@@ -5,7 +5,7 @@
 
 Use GPW company financials through a hosted MCP server, without creating an account. [Agent Rynku](https://agentrynku.pl/en/mcp) returns report periods, currency, sources and quality checks. Missing data is explicit.
 
-Documentation with parameters and real responses for every public tool: [docs.agentrynku.pl](https://docs.agentrynku.pl/).
+Documentation with parameters and real responses for every public tool: [agentrynku.pl/docs](https://agentrynku.pl/docs).
 
 ## Connect without an API key
 
@@ -100,7 +100,7 @@ The bridge code and documentation are MIT licensed. Data returned by the server 
 
 ### 1.2.1: original report files
 
-The keyed `get_report_event` response includes `zdarzenie.zrodla[].zalaczniki` with `{nazwa, url}` for original issuer attachments linked to that report event. An empty list means no valid attachment links are recorded; use the source `url` as a communication page when available. This is not a PDF/Word export of Agent Rynku analysis. The tool still requires an API key with `read:portfolio` and a company within the account's scope. Public access and transport are unchanged. See the [tool catalog](https://docs.agentrynku.pl/katalog/).
+The keyed `get_report_event` response includes `zdarzenie.zrodla[].zalaczniki` with `{nazwa, url}` for original issuer attachments linked to that report event. An empty list means no valid attachment links are recorded; use the source `url` as a communication page when available. This is not a PDF/Word export of Agent Rynku analysis. The tool still requires an API key with `read:portfolio` and a company within the account's scope. Public access and transport are unchanged. See the [tool catalog](https://agentrynku.pl/docs/katalog).
 
 
 ### 1.2.2: source page alongside file links

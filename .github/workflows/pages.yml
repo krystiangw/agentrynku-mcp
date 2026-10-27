@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 22
       - run: node --test test/docs-refresh.mjs
-      - run: node site/build.mjs
+      - run: node site/redirect.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
