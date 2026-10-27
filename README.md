@@ -70,7 +70,9 @@ Public calls are rate limited and have a response-size limit. HTTP 429 includes 
 
 ## Additional tools with a key
 
-Portfolio, alerts, forecasts, intraday quotes and other functions require an account and API key from [settings](https://agentrynku.pl/settings). Anonymous `tools/list` returns the six public tools. Keyed discovery returns the tools permitted by that key's scopes. The [full catalog](TOOLS.md) contains the available functions and identifies the public subset.
+Portfolio, alerts, forecasts, intraday quotes and other functions require an account and API key from [settings](https://agentrynku.pl/settings). Anonymous `tools/list` returns the six public tools. Keyed discovery returns the tools permitted by that key's scopes. The [live catalog](https://agentrynku.pl/docs/katalog) is generated from the server registry; [TOOLS.md](TOOLS.md) is a snapshot of it.
+
+With a key, an agent can also save, edit and monitor the user's own thesis for a company: `set_thesis` (create, edit or clear), `get_my_theses` (state, state history, pending post-report reviews), `confirm_thesis_review`, and thesis alerts in `get_alerts` with `kind`.
 
 For HTTP, add `Authorization: Bearer YOUR_KEY`. For the stdio bridge, add:
 
